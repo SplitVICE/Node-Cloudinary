@@ -1,0 +1,21 @@
+{
+  "name": "node-cloudinary",
+  "version": "1.0.0",
+  "description": "Template to upload images onto Cloudinary using Node SDK + Multer",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": ["CLOUDINARY, MULTER, SPLIT VICE"],
+  "author": "SPLIT VICE",
+  "license": "MIT",
+  "dependencies": {
+    "cloudinary": "^1.26.3",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "multer": "^1.4.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}

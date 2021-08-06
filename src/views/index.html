@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node + Cloudinary - By SPLIT VICE</title>
+
+    <!-- AXIOS IMPORT -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <style>
+        .title {
+            font-size: 25px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SINGLE FILE UPLOADS -->
+    <div class="title">Form tag example - single file</div>
+
+    <form action="/api/upload/single" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit">
+    </form>
+
+    <hr>
+
+    <div class="title">JavaScript formData.append example - single file</div>
+
+    <input type="file" name="file" id="input_file">
+    <button id='btn_input_single'>Submit</button>
+
+    <hr>
+    <br><br>
+
+    <!-- MULTIPLE FILE UPLOADS -->
+    <div class="title">Form tag example - multiple files</div>
+
+    <form action="/api/upload/multiple" method="post" enctype="multipart/form-data">
+        <input type="file" name="files" multiple>
+        <input type="submit">
+    </form>
+
+    <hr>
+
+    <div class="title">JavaScript formData.append example - multiple files</div>
+
+    <input type="file" name="files" id="input_files" multiple>
+    <button id='btn_input_multiple'>Submit</button>
+
+    <hr>
+    Keep dev tools console open to see responses
+
+    <script>
+        // ===============================================================================================
+        // DOM ELEMENT CAPTURE
+        // ===============================================================================================
+        const input_file = document.getElementById("input_file");
+        const input_files = document.getElementById("input_files");
+        const btn_input_single = document.getElementById("btn_input_single");
+        const btn_input_multiple = document.getElementById("btn_input_multiple");
+        const API_HOST_SINGLE = "/api/upload/single/";
+        const API_HOST_MULTIPLE = "/api/upload/multiple/";
+
+        // Array/single container for files
+        let files = undefined; // Container of files
+
+        // ===============================================================================================
+        // FILE SELECTION LISTENERS
+        // ===============================================================================================
+
+        input_file.addEventListener('change', e => {
+            files = e.target.files[0]
+        })
+
+        input_files.addEventListener('change', e => {
+            files = (() => { // Files assignment
+                const arr = []
+                for (let i = 0; i < e.target.files.length; i++) {
+                    arr.push(e.target.files[i]);
+                }
+                return arr
+            })()
+        })
+
+        // ===============================================================================================
+        // UPLOAD BUTTONS
+        // ===============================================================================================
+
+        btn_input_single.addEventListener('click', async e => {
+            e.preventDefault();
+            if (files === undefined) { console.log('no files'); return; }
+            const formData = new FormData();
+            formData.append("file", files);
+
+            // Server files sending
+            const res = await axios.post(API_HOST_SINGLE, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+            console.log(res.data);
+        })
+
+        btn_input_multiple.addEventListener('click', async e => {
+            e.preventDefault();
+            if (files === undefined) { console.log('no files'); return; }
+            const formData = new FormData();
+            files.forEach(file => { formData.append("files", file); });
+
+            // Server files sending
+            const res = await axios.post(API_HOST_MULTIPLE, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+            console.log(res.data);
+        })
+    </script>
+</body>
+
+</html>
