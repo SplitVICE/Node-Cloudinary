@@ -1,6 +1,6 @@
 {
   "name": "node-cloudinary",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Template to upload images onto Cloudinary using Node SDK + Multer",
   "main": "index.js",
   "scripts": {

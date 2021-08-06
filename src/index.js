@@ -48,7 +48,7 @@ const upload = multer({
 // Single file upload route
 app.post('/api/upload/single', upload.single('file'), async (req, res) => {
     // Uploads image onto Cloudinary. Stores Cloudinary response on variable
-    //const cloudinary_response = await cloudinary.uploader.upload(req.file.path);
+    const cloudinary_response = await cloudinary.uploader.upload(req.file.path);
 
     fs.unlinkSync(req.file.path); // deletes temporal image
 
